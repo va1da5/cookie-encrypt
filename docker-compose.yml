@@ -1,0 +1,12 @@
+services:
+  encrypt:
+    image: va1da5/cookie-encrypt:latest
+    environment:
+      PORT: 8000
+      BACKEND: http://example.com:8000
+      SECRET: HelloWorld!
+      HTTPONLY: t
+      SECURE: t
+      IGNORE: PHPSESSID
+    ports:
+      - 8000:8000
