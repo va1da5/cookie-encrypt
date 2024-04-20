@@ -8,7 +8,7 @@ The prebuilt container image can be found in [DokerHub.io](https://hub.docker.co
 
 ## Environment Variables
 
-- `PORT` (_Default: 8000_) - On which port to listen
+- `SERVER` (_Default: 0.0.0.0:8000_) - On which port to listen
 - `SECRET` (_Required, min 6 characters_) - Secret used to encrypt cookie values
 - `BACKEND` (_Example: http://google.com_) - Destination backend including scheme
 - `DOMAIN` (_Example: mydomain.com_) - Overwrite cookie domain field with custom value

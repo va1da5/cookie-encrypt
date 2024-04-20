@@ -2,7 +2,7 @@ services:
   encrypt:
     image: va1da5/cookie-encrypt:latest
     environment:
-      PORT: 8000
+      SERVER: 0.0.0.0:8000
       BACKEND: http://example.com:8000
       SECRET: HelloWorld!
       HTTPONLY: t
