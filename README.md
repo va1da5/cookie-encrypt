@@ -12,6 +12,15 @@ A simple reverse proxy designed specifically to encrypt cookies.
 - `SECURE` (Default: false) - Toogle `Secure` option on cookies
 - `IGNORE` (Example: uuid,load-balancer) - Comma separated list of Cookie names that should be ignored
 
+## Development
+
+```
+cp sample.env .env
+export $(cat .env |xargs)
+
+go run main.go
+```
+
 ## References
 
 - [yowu/HttpProxy.go](https://gist.github.com/yowu/f7dc34bd4736a65ff28d)

@@ -5,6 +5,7 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -89,8 +90,6 @@ func main() {
 			var cookies []*http.Cookie
 			cookies = []*http.Cookie{}
 
-			var error = false
-
 			for _, c := range r.Cookies() {
 				if strings.Contains(Ignore, c.Name) {
 					cookies = append(cookies, c)
@@ -99,26 +98,17 @@ func main() {
 
 				out, err := Decrypt(c.Value, Secret)
 
-				if err != nil {
-					fmt.Println(err)
-					error = true
-					break
-				}
-				if !isASCII(out) {
-					fmt.Println("Cookie decoding failed")
-					error = true
-					break
+				if err != nil || !isASCII(out) {
+					continue
 				}
 
 				c.Value = out
 				cookies = append(cookies, c)
 			}
 
-			if !error {
-				r.Header.Set("Cookie", joinCookies(cookies))
-			}
-
+			r.Header.Set("Cookie", joinCookies(cookies))
 			r.Host = remote.Host
+
 			p.ServeHTTP(w, r)
 
 		}
@@ -169,10 +159,16 @@ func Decrypt(text, secret string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	cipherText, err := Decode(text)
 	if err != nil {
 		return "", err
 	}
+
+	if len(cipherText) < aes.BlockSize {
+		return "", errors.New("cipherText too short")
+	}
+
 	iv := cipherText[:aes.BlockSize]
 	cfb := cipher.NewCFBDecrypter(block, iv)
 
