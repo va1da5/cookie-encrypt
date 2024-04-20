@@ -6,11 +6,11 @@ A simple reverse proxy designed specifically to encrypt cookies.
 
 - `PORT` (_Default: 8000_) - On which port to listen
 - `SECRET` (_Required, min 6 characters_) - Secret used to encrypt cookie values
-- `BACKEND` (Example: http://google.com) - Destination backend including scheme
-- `DOMAIN` (Example: mydomain.com) - Overwrite cookie domain field with custom value
-- `HTTPONLY` (Default: false) - Toogle `HttpOnly` option on cookies
-- `SECURE` (Default: false) - Toogle `Secure` option on cookies
-- `IGNORE` (Example: uuid,load-balancer) - Comma separated list of Cookie names that should be ignored
+- `BACKEND` (_Example: http://google.com_) - Destination backend including scheme
+- `DOMAIN` (_Example: mydomain.com_) - Overwrite cookie domain field with custom value
+- `HTTPONLY` (_Default: false_) - Toogle `HttpOnly` option on cookies
+- `SECURE` (_Default: false_) - Toogle `Secure` option on cookies
+- `IGNORE` (_Example: uuid,PHPSESSID_) - Comma separated list of Cookie names that should be ignored
 
 ## Development
 
@@ -18,6 +18,7 @@ A simple reverse proxy designed specifically to encrypt cookies.
 cp sample.env .env
 export $(cat .env |xargs)
 
+# start local server
 go run main.go
 ```
 
